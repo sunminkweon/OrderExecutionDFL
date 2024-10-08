@@ -1,0 +1,28 @@
+DLinear: 
+  device: cuda
+  features: 1
+  individual: false
+  kernel_size: 63
+  learning_rate: 0.00032179103429405846
+  pred_len: 78
+  seq_len: 78
+
+PatchTST:
+  activation: gelu
+  affine: true
+  device: cuda
+  drop_out: 0.4
+  features: 1
+  hidden_dim: 32
+  individual: false
+  learning_rate: 0.0002587359533781541
+  n_heads: 8
+  norm_first: true
+  num_layers: 2
+  padding_patch: end
+  patch_len: 4
+  pred_len: 78
+  revin: true
+  seq_len: 78
+  stride: 8
+  subtract_last: false
