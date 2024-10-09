@@ -39,8 +39,8 @@ def load_target_from_csv(save_dir):
     trg = pd.read_csv(trg_dir)
     return trg
     
-
-def load_DA_predictions_from_csv(model_name, save_dir):
+    
+def load_DFL_predictions_from_csv(model_name, save_dir):
     """
     Load data from a CSV file.
 
@@ -49,21 +49,7 @@ def load_DA_predictions_from_csv(model_name, save_dir):
     Returns:
         Prediction , target : pandas.DataFrame: Loaded data. 
     """
-    pred_dir = os.path.join(save_dir, 'DA_' + f'{model_name}_predictions.csv')
-    
-    pred = pd.read_csv(pred_dir)
-    return pred
-    
-def load_E2E_predictions_from_csv(model_name, save_dir):
-    """
-    Load data from a CSV file.
-
-    Parameters:
-        model_name (str): Name of the CSV file.
-    Returns:
-        Prediction , target : pandas.DataFrame: Loaded data. 
-    """
-    pred_dir = os.path.join(save_dir, 'E2E_' + f'{model_name}_predictions.csv')
+    pred_dir = os.path.join(save_dir, 'DFL_' + f'{model_name}_predictions.csv')
     
     pred = pd.read_csv(pred_dir)
     return pred
