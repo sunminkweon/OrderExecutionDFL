@@ -33,8 +33,9 @@ parser.add_argument('--alpha', type=float, default =1, help='Hyperparameter betw
 parser.add_argument('--config', type=str, default ='configs.yml', help='Model configurations')
 parser.add_argument('--tickers', type=str, nargs='+', default=['AAPL', 'TSLA', 'CVX','MSFT', 'JPM', 'AMZN', 'JNJ', 'LLY', 'XOM'], 
                     help='List of stock tickers.')
-parser.add_argument('--weights', type=float, nargs='+', default=[(1, 0.01), (1, 0.02),(1, 0.1),(1, 0.02),(1, 0.1),(1, 0.5),(1, 0.1),(1, 0.3),(1, 0.1) ], 
-                    help='List weight of prediction loss for each stock tickers.')
+parser.add_argument('--pred_weights', type=float, nargs='+', default=[1, 1,1 , 1, 1, 1, 1, 1 ,1 ], help='List weight of prediction loss for each stock tickers.')
+parser.add_argument('--task_weights', type=float, nargs='+', default=[0.01,  0.02, 0.1, 0.02, 0.1, 0.5,0.1,0.3,0.1 ], help='List weight of prediction loss for each stock tickers.')
+
 parser.add_argument('--prediction_length', type=int, default=78, help='Prediction Length.')
 parser.add_argument('--context_length', type=int, default=78, help='Context Length.')
 parser.add_argument('--wanted_interval', type=int, default=5, help='wanted time period.')
@@ -75,9 +76,12 @@ def assert_weights_tickers_is_valid(tickers, weights):
         assert isinstance(weight, tuple), "Input must be a tuple."
         assert len(weight) == 2, "Tuple must have exactly 2 elements."
         assert all(isinstance(x, (int, float)) for x in weight), "Both elements must be int or float."
-assert_weights_tickers_is_valid(args.tickers, args.weights)
-                                                                 
-for ticker, weight in zip(args.tickers, args.weights) : 
+        
+weights = tuple(zip(args.pred_weights, args.task_weights))
+assert_weights_tickers_is_valid(args.tickers, weights)
+                
+    
+for ticker, weight in zip(args.tickers, weights) : 
     # data preprocessing
     scaler, train_loader, val_loader, test_loader = initialize_data_module(args.directory, ticker, args.time_length, args.prediction_length, args.context_length, args.wanted_interval, args.train_ratio, args.val_ratio, args.batch_size)
     
