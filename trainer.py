@@ -28,7 +28,7 @@ class Trainer:
     def train_model(self, accelerator, train_loader, val_loader, max_epochs, dirpath=None):
         self.initialize_callbacks_and_logger(self.model.__class__.__name__ +"/"+self.model.model.__class__.__name__+"/"+self.ticker)
         early_stopping_callback = pl.callbacks.EarlyStopping(
-            monitor='train_task_loss_epoch',
+            monitor='val_loss',
             min_delta=0.0001,
             patience=5,  # Adjust patience as needed
             mode='min'
